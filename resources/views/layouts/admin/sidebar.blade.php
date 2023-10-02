@@ -5,7 +5,7 @@
     </button>
     <h1 class="navbar-brand navbar-brand-autodark">
       <a href=".">
-        <img src="{{ asset('tabler/static/logo.svg') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+        <img src="{{ asset('tabler/static/logo.svg')}}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
       </a>
     </h1>
     <div class="navbar-nav flex-row d-lg-none">
@@ -162,7 +162,7 @@
             <div class="dropdown-menu-columns">
               <div class="dropdown-menu-column">
                 <a class="dropdown-item" href="/mitra">
-                  Mitra
+                  Data Mitra
                 </a>
               </div>
             </div>

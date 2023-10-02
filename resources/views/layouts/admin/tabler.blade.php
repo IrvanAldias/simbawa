@@ -1,3 +1,4 @@
+
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -14,11 +15,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
     <!-- CSS files -->
-    <link href="{{ asset('tabler/dist/css/tabler.min.css?1684106062') }}" rel="stylesheet"/>
-    <link href="{{ asset('tabler/dist/css/tabler-flags.min.css?1684106062') }}" rel="stylesheet"/>
-    <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1684106062') }}" rel="stylesheet"/>
-    <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet"/>
-    <link href="{{ asset('tabler/dist/css/demo.min.css?1684106062') }}" rel="stylesheet"/>
+    <link href="{{ asset('tabler/dist/css/tabler.min.css?1684106062')}}" rel="stylesheet"/>
+    <link href="{{ asset('tabler/dist/css/tabler-flags.min.css?1684106062')}}" rel="stylesheet"/>
+    <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1684106062')}}" rel="stylesheet"/>
+    <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1684106062')}}" rel="stylesheet"/>
+    <link href="{{ asset('tabler/dist/css/demo.min.css?1684106062')}}" rel="stylesheet"/>
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -30,7 +31,7 @@
     </style>
   </head>
   <body >
-    <script src="{{ asset('tabler/dist/js/demo-theme.min.js?1684106062') }}"></script>
+    <script src="{{ asset('tabler/dist/js/demo-theme.min.js?1684106062')}}"></script>
     <div class="page">
       <!-- Sidebar -->
       @include('layouts.admin.sidebar')
@@ -38,39 +39,20 @@
       @include('layouts.admin.header')
       <div class="page-wrapper">
         @yield('content')
+        <!-- Footer -->
         @include('layouts.admin.footer')
       </div>
     </div>
     <!-- Libs JS -->
-    <script src="{{ asset('tabler/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062') }}" defer></script>
-    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1684106062') }}" defer></script>
-    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world.js?1684106062') }}" defer></script>
-    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world-merc.js?1684106062') }}" defer></script>
+    <script src="{{ asset('tabler/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062')}}" defer></script>
+    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1684106062')}}" defer></script>
+    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world.js?1684106062')}}" defer></script>
+    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world-merc.js?1684106062')}}" defer></script>
     <!-- Tabler Core -->
-    <script src="{{ asset('tabler/dist/js/tabler.min.js?1684106062') }}" defer></script>
-    <script src="{{ asset('tabler/dist/js/demo.min.js?1684106062') }}" defer></script>
-    <!-- Libs JS -->
-    <script src="{{ asset('tabler/dist/libs/list.js/dist/list.min.js?1684106062') }}" defer></script>
-    <!-- Tabler Core -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="{{ asset('tabler/dist/js/tabler.min.js?1684106062') }}" defer></script>
-    <script src="{{ asset('tabler/dist/js/demo.min.js?1684106062') }}" defer></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> --}}
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-        const list = new List('table-default', {
-            sortClass: 'table-sort',
-            listClass: 'table-tbody',
-            valueNames: [ 'sort-name', 'sort-type', 'sort-city', 'sort-score',
-                { attr: 'data-date', name: 'sort-date' },
-                { attr: 'data-progress', name: 'sort-progress' },
-                'sort-quantity'
-            ]
-        });
-        })
-    </script> --}}
-    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('tabler/dist/js/tabler.min.js?1684106062')}}" defer></script>
+    <script src="{{ asset('tabler/dist/js/demo.min.js?1684106062')}}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('myscript')
   </body>
 </html>

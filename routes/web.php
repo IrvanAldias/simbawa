@@ -58,7 +58,7 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/panel/dashboardadmin', [DashboardController::class, 'dashboardadmin']);
     Route::get('/proseslogoutadmin', [AuthController::class, 'proseslogoutadmin']);
 
-    //Daftar Mitra
+    //Mitra
     Route::get('/mitra', [MitraController::class, 'index']);
     Route::post('/mitra/store', [MitraController::class, 'store']);
 });

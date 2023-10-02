@@ -129,8 +129,9 @@
                 <img src="{{ asset('assets/img/login/logobps.svg') }}" alt="image" class="form-image">
             </div>
             <div class="section mt-1">
-                <h1>Presensi Mitra BPS</h1>
-                <h4>Silahkan isi untuk masuk</h4>
+                <h1>SIMBAWA</h1>
+                <h4>Presensi Mitra BPS Sumbawa</h4>
+                <h4>Login Panel</h4>
             </div>
             <div class="section mt-1 mb-5">
                 @php
@@ -165,7 +166,8 @@
                         {{-- <div>
                             <a href="page-register.html">Register Now</a>
                         </div> --}}
-                        <div><a href="page-forgot-password.html" class="text-muted">Forgot Password?</a></div>
+                        {{-- <div><a href="page-forgot-password.html" class="text-muted">Forgot Password?</a></div> --}}
+                        <div><a href="/" class="text-muted">Mitra?</a></div>
                     </div>
 
                     <div class="form-button-group">

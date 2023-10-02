@@ -47,16 +47,19 @@
             </div> --}}
             {{-- <div class="row" style="margin-bottom: 15px; margin-top:15px">
                 <div class="col"> --}}
-                    <input type="hidden" name="lokasi" id="lokasi">
                     <div id="map" style="z-index: 1"></div>
                 {{-- </div>
             </div> --}}
             <div class="card mt-2">
                 <div class="card-header">
-                    Card Header
+                    <p class="card-text" id="paraID1">
+                    {{-- <button onclick="getlocation()" class="btn btn-primary btn-block"><ion-icon name="locate-outline"></ion-icon>Simpan Kepulangan</button> --}}
                 </div>
                 <div class="card-body">
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <input type="hidden" name="lokasi" id="lokasi">
+                    <p class="card-text" id="paraID2">
+                        
+                    </p>
                     @if ($cek > 0)
                         <button id="takepresensi" class="btn btn-primary btn-block"><ion-icon name="locate-outline"></ion-icon>Simpan Kepulangan</button>
                     @else
@@ -91,6 +94,29 @@
 
         // Webcam.attach('.webcam-capture');
 
+        var variable1 = document.getElementById("paraID1");
+        var variable2 = document.getElementById("paraID2");
+ 
+        function getlocation() {
+            navigator.geolocation.getCurrentPosition(showLoc);
+            navigator.geolocation.getCurrentPosition(showLoc2);
+        }
+
+        function showLoc(pos) {
+            variable1.innerHTML = "Lokasi saat ini: " +
+                pos.coords.latitude + ", " +
+                pos.coords.longitude;
+        }
+
+        function showLoc2(pos) {
+            variable2.innerHTML = "Akurat sampai: "
+                + pos.coords.accuracy + " meter";
+        }
+
+        document.body.onload = function(){
+            getlocation();
+        };
+
         var lokasi = document.getElementById('lokasi');
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
@@ -103,11 +129,11 @@
                 maxZoom: 19,
                 attribution: '© OpenStreetMap'
             }).addTo(map);
-            // var $lat1 = -8.488431;
-            // var $lon1 = 117.423025;
+            // var lat1 = -8.488431;
+            // var lon1 = 117.423025;
             var lat1 = position.coords.latitude;
             var lon1 = position.coords.longitude;
-            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda ada di sini');
             var circle = L.circle([lat1, lon1], {
                 color: 'green',
                 fillColor: 'lightgreen',

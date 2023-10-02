@@ -15,17 +15,24 @@ class MitraController extends Controller
     {
         $query = Mitra::query();
         $query->select('mitra.*', 'nama_kegiatan');
-        $query->join('kegiatan', 'mitra.kegiatan_id', '=', 'kegiatan.id_kegiatan');
+        $query->join('kegiatan', 'mitra.id_kegiatan', '=', 'kegiatan.id_kegiatan');
         $query->orderBy('nama');
         if (!empty($request->nama)) {
             $query->where('nama', 'like', '%' . $request->nama . '%');
         }
-        if (!empty($request->kegiatan_id)) {
-            $query->where('mitra.kegiatan_id', $request->kegiatan_id);
+        if (!empty($request->id_kegiatan)) {
+            $query->where('mitra.id_kegiatan', $request->id_kegiatan);
+        }
+        if (!empty($request->posisi)) {
+            $query->where('posisi', $request->posisi);
+        }
+        if (!empty($request->sesi)) {
+            $query->where('sesi', $request->sesi);
         }
         $mitra = $query->paginate(2);
 
         $kegiatan = DB::table('kegiatan')->get();
+
         return view('mitra.index', compact('mitra', 'kegiatan'));
     }
 
@@ -33,12 +40,12 @@ class MitraController extends Controller
     {
         $sobat_id = $request->sobat_id;
         $nama = $request->nama;
-        $posisi = $request->posisi;
-        $password = Hash::make('Mitrabps1');
         $no_hp = $request->no_hp;
-        $catatan = $request->catatan;
+        $password = Hash::make('Mitrabps1');
+        $id_kegiatan = $request->id_kegiatan;
+        $posisi = $request->posisi;
         $sesi = $request->sesi;
-        $kegiatan_id = $request->kegiatan_id;
+        $catatan = $request->catatan;
         $mitra = DB::table('mitra')->where('sobat_id', $sobat_id)->first();
         if ($request->hasFile('foto')) {
             $foto = $sobat_id . "." . $request->file('foto')->getClientOriginalExtension();
@@ -54,7 +61,7 @@ class MitraController extends Controller
                 'no_hp' => $no_hp,
                 'catatan' => $catatan,
                 'sesi' => $sesi,
-                'kegiatan_id' => $kegiatan_id,
+                'id_kegiatan' => $id_kegiatan,
                 'foto' => $foto
             ];
             $simpan = DB::table('mitra')->insert($data);

@@ -56,7 +56,7 @@ class DashboardController extends Controller
             ->where('tgl_presensi', $hariini)
             ->first();
         $rekapizin = DB::table('pengajuan_izin')
-            ->selectRaw('SUM(IF(status="i",1,0)) as jmlizin, SUM(IF(status="s",1,0)) as jmlsakit')
+            ->selectRaw('SUM(IF(status="i",1,0)) as jml_izin, SUM(IF(status="s",1,0)) as jml_sakit')
             ->where('tgl_izin', $hariini)
             ->where('status_approved', 1)
             ->first();

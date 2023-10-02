@@ -1994,6 +1994,13 @@ a.badge-dark {
   line-height: 1.4em;
 }
 
+.todaypresence .card .card-body {
+  /* background-image: url(../img/background-header.svg);
+  background-size: cover; */
+  background-color: #1e74fd;
+  border-radius: 0.5rem;
+}
+
 .card .card-title {
   color: #141515;
   font-size: 24px;
@@ -7995,22 +8002,31 @@ body.dark-mode-active .cart-item .cart-item-footer {
 }
 
 #user-section {
-  height: 180px;
-  background-color: #092c9f;
+  /* height: 180px; */
+  height: 300px;
+  /* background-color: #092c9f; */
+  background-image: url(../img/background-header.svg);
+  background-size: cover;
   padding: 20px;
 }
 
 #user-detail {
   margin-top: 20px;
   display: flex;
+  justify-content: space-between;
 }
 
 #user-info {
-  margin-left: 20px !important;
+  /* margin-left: 20px !important; */
   line-height: 2px;
 }
 #user-name {
   color: white;
+  width: 18ch;
+  text-overflow: ellipsis; 
+  overflow: hidden; 
+  white-space: nowrap;
+  justify-content: center;
 }
 #user-role {
   color: white;
@@ -8023,6 +8039,14 @@ body.dark-mode-active .cart-item .cart-item-footer {
   z-index: 999;
 }
 
+.todaypresence .menu-icon {
+  color: orange;
+}
+
+.menu-name {
+  color: white;
+}
+
 .list-menu {
   display: flex;
   justify-content: space-around;
@@ -8030,7 +8054,8 @@ body.dark-mode-active .cart-item .cart-item-footer {
 
 #presence-section {
   position: absolute;
-  top: 150px;
+  /* top: 150px; */
+  top: 200px;
   width: 100%;
   background-color: #e9ecef;
   border-radius: 10px 10px 0px 0px;
