@@ -61,4 +61,5 @@ Route::middleware(['auth:user'])->group(function () {
     //Mitra
     Route::get('/mitra', [MitraController::class, 'index']);
     Route::post('/mitra/store', [MitraController::class, 'store']);
+    // Route::post('/mitra/edit', [MitraController::class, 'edit']);
 });

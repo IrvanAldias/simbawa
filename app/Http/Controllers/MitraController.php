@@ -23,13 +23,13 @@ class MitraController extends Controller
         if (!empty($request->id_kegiatan)) {
             $query->where('mitra.id_kegiatan', $request->id_kegiatan);
         }
-        if (!empty($request->posisi)) {
-            $query->where('posisi', $request->posisi);
-        }
-        if (!empty($request->sesi)) {
-            $query->where('sesi', $request->sesi);
-        }
-        $mitra = $query->paginate(2);
+        // if (!empty($request->posisi)) {
+        //     $query->where('posisi', $request->posisi);
+        // }
+        // if (!empty($request->sesi)) {
+        //     $query->where('sesi', $request->sesi);
+        // }
+        $mitra = $query->paginate(10);
 
         $kegiatan = DB::table('kegiatan')->get();
 
@@ -75,5 +75,12 @@ class MitraController extends Controller
             return Redirect::back()->with(['error' => 'Data mitra gagal disimpan']);
             dd($e);
         }
+    }
+
+    public function edit(Request $request)
+    {
+        $sobat_id = $request->sobat_id;
+        $kegiatan = DB::table('kegiatan')->get();
+        return view('mitra.edit', compact('kegiatan'));
     }
 }

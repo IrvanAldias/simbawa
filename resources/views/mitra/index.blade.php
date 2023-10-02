@@ -54,12 +54,12 @@
               <div class="col-12">
                 <form action="/mitra" method="GET">
                   <div class="row">
-                    <div class="col-3">
+                    <div class="col-6">
                       <div class="form-group">
                         <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mitra" value="{{ Request('nama') }}">
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                       <div class="form-group">
                         <select name="id_kegiatan" class="form-select" id="id_kegiatan">
                           <option value="">Kegiatan</option>
@@ -69,7 +69,7 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                       <div class="form-group">
                         <select name="posisi" class="form-select" id="posisi">
                           <option value="">Posisi</option>
@@ -88,8 +88,8 @@
                           @endforeach
                         </select>
                       </div>
-                    </div>
-                    <div class="col-3">
+                    </div> --}}
+                    <div class="col-2">
                       <div class="form-group">
                         <button type="submit" class="btn btn-primary">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -143,7 +143,16 @@
                           <td>{{ $d->nama_kegiatan }}</td>
                           <td>{{ $d->sesi }}</td>
                           <td>{{ $d->catatan }}</td>
-                          <td>Aksi</td>
+                          <td>
+                            <a href="#" class="edit" sobat_id="{{ $d->sobat_id }}">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                <path d="M16 5l3 3"></path>
+                             </svg>
+                            </a>
+                          </td>
                         </tr>
                     @endforeach
                   </tbody>
@@ -286,6 +295,20 @@
   </div>
 </div>
 
+<div class="modal modal-blur fade" id="modal-editmitra" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data Mitra</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="loadeditform">
+
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @push('myscript')
@@ -293,6 +316,23 @@
   $(function(){
     $("#btnTambahMitra").click(function(){
       $("#modal-inputmitra").modal("show");
+    });
+
+    $(".edit").click(function(){
+      var sobat_id = $(this).attr('sobat_id');
+      $.ajax({
+        type: 'POST',
+        url: '/mitra/edit',
+        cache: false,
+        data: {
+          _token: "{{ csrf_token(); }}",
+          sobat_id: sobat_id
+        },
+        success:function(respond){
+          $("#loadeditform").html(respond);
+        }
+      });
+      $("#modal-editmitra").modal("show");
     });
 
     $("#frmmitra").submit(function(){
@@ -312,26 +352,14 @@
           $("#sobat_id").focus();
         });
         return false;
-      } 
-      // else if (nama=="") {
-      //   Swal.fire({
-      //     title: 'Warning!',
-      //     text: 'Nama harus terisi',
-      //     icon: 'warning',
-      //     confirmButtonText: 'Ok'
-      //   }).then((result) => {
-      //     $("#nama").focus();
-      //   });
-      //   return false;
-      // } 
-      else if (no_hp=="") {
+      } else if (nama=="") {
         Swal.fire({
           title: 'Warning!',
-          text: 'Nomor HP harus terisi',
+          text: 'Nama harus terisi',
           icon: 'warning',
           confirmButtonText: 'Ok'
         }).then((result) => {
-          $("#no_hp").focus();
+          $("#nama").focus();
         });
         return false;
       } else if (posisi=="") {
@@ -352,16 +380,6 @@
           confirmButtonText: 'Ok'
         }).then((result) => {
           $("#id_kegiatan").focus();
-        });
-        return false;
-      } else if (sesi=="") {
-        Swal.fire({
-          title: 'Warning!',
-          text: 'Sesi harus terisi',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          $("#sesi").focus();
         });
         return false;
       }
