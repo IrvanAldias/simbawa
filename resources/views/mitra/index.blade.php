@@ -24,6 +24,21 @@
           <div class="card-body">
             <div class="row">
               <div class="col-12">
+                @if (Session::get('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+                @endif
+
+                @if (Session::get('error'))
+                <div class="alert alert-warning">
+                    {{Session::get('error')}}
+                </div>
+                @endif
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
                 <a href="#" class="btn btn-primary" id="btnTambahMitra">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -110,7 +125,7 @@
                   <tbody>
                     @foreach ($mitra as $d)
                     @php
-                      $path = Storage::url('/uploads/mitra/'.$d->foto);
+                      $path = Storage::url('uploads/mitra/'.$d->foto);
                     @endphp
                         <tr>
                           <td>{{ $loop->iteration + $mitra->firstItem()-1 }}</td>
@@ -284,9 +299,9 @@
       var sobat_id = $("#sobat_id").val();
       var nama = $("#nama").val();
       var no_hp = $("#no_hp").val();
-      var posisi = $("#posisi").val();
-      var id_kegiatan = $("#id_kegiatan").val();
-      var sesi = $("#sesi").val();
+      var posisi = $("frmMitra").find("#posisi").val();
+      var id_kegiatan = $("frmMitra").find("#id_kegiatan").val();
+      var sesi = $("frmMitra").find("#sesi").val();
       if(sobat_id==""){
         Swal.fire({
           title: 'Warning!',
@@ -297,17 +312,19 @@
           $("#sobat_id").focus();
         });
         return false;
-      } else if (nama=="") {
-        Swal.fire({
-          title: 'Warning!',
-          text: 'Nama harus terisi',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          $("#nama").focus();
-        });
-        return false;
-      } else if (no_hp=="") {
+      } 
+      // else if (nama=="") {
+      //   Swal.fire({
+      //     title: 'Warning!',
+      //     text: 'Nama harus terisi',
+      //     icon: 'warning',
+      //     confirmButtonText: 'Ok'
+      //   }).then((result) => {
+      //     $("#nama").focus();
+      //   });
+      //   return false;
+      // } 
+      else if (no_hp=="") {
         Swal.fire({
           title: 'Warning!',
           text: 'Nomor HP harus terisi',

@@ -46,11 +46,10 @@ class MitraController extends Controller
         $posisi = $request->posisi;
         $sesi = $request->sesi;
         $catatan = $request->catatan;
-        $mitra = DB::table('mitra')->where('sobat_id', $sobat_id)->first();
         if ($request->hasFile('foto')) {
             $foto = $sobat_id . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = $mitra->foto;
+            $foto = null;
         }
         try {
             $data = [
@@ -73,7 +72,7 @@ class MitraController extends Controller
                 return Redirect::back()->with(['success' => 'Data mitra berhasil disimpan']);
             }
         } catch (\Exception $e) {
-            // return Redirect::back()->with(['error' => 'Data mitra gagal disimpan']);
+            return Redirect::back()->with(['error' => 'Data mitra gagal disimpan']);
             dd($e);
         }
     }
