@@ -125,20 +125,23 @@
         function successCallback(position) {
             lokasi.value = position.coords.latitude+", "+position.coords.longitude;
             var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+            var lokasi_kantor = "{{ $lok_kantor->lokasi_kantor }}";
+            var lok = lokasi_kantor.split(",");
+            var radius = "{{ $lok_kantor->radius }}";
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© OpenStreetMap'
             }).addTo(map);
             // var lat1 = -8.488431;
             // var lon1 = 117.423025;
-            var lat1 = position.coords.latitude;
-            var lon1 = position.coords.longitude;
+            var lat1 = lok[0];
+            var lon1 = lok[1];
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda ada di sini');
             var circle = L.circle([lat1, lon1], {
                 color: 'green',
                 fillColor: 'lightgreen',
                 fillOpacity: 0.5,
-                radius: 100
+                radius: radius
             }).addTo(map);
         }
         function errorCallback() {

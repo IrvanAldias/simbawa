@@ -10,7 +10,7 @@
                 Data Master
                 </div>
                 <h2 class="page-title">
-                Data Mitra
+                Data Kegiatan
                 </h2>
             </div>
         </div>
@@ -39,7 +39,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <a href="#" class="btn btn-primary" id="btnTambahMitra">
+                <a href="#" class="btn btn-primary" id="btnTambahKegiatan">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
@@ -52,43 +52,18 @@
             </div>
             <div class="row mt-2">
               <div class="col-12">
-                <form action="/mitra" method="GET">
+                <form action="/kegiatan" method="GET">
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                       <div class="form-group">
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mitra" value="{{ Request('nama') }}">
+                        <input type="text" class="form-control" name="id_kegiatan" id="id_kegiatan" placeholder="ID Kegiatan" value="{{ Request('id_kegiatan') }}">
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-5">
                       <div class="form-group">
-                        <select name="id_kegiatan" class="form-select" id="id_kegiatan">
-                          <option value="">Kegiatan</option>
-                          @foreach ($kegiatan as $d)
-                            <option {{ Request('id_kegiatan')==$d->id_kegiatan ? 'selected' : '' }} value="{{ $d->id_kegiatan }}">{{ $d->nama_kegiatan}}</option>  
-                          @endforeach
-                        </select>
+                        <input type="text" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Nama Kegiatan" value="{{ Request('nama_kegiatan') }}">
                       </div>
                     </div>
-                    {{-- <div class="col-2">
-                      <div class="form-group">
-                        <select name="posisi" class="form-select" id="posisi">
-                          <option value="">Posisi</option>
-                          @foreach ($mitra as $d)
-                          <option {{ Request('posisi')==$d->posisi ? 'selected' : '' }} value="{{ $d->posisi }}">{{ $d->posisi}}</option>  
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-1">
-                      <div class="form-group">
-                        <select name="sesi" class="form-select" id="sesi">
-                          <option value="">Sesi</option>
-                          @foreach ($mitra as $d)
-                          <option {{ Request('sesi')==$d->sesi ? 'selected' : '' }} value="{{ $d->sesi }}">{{ $d->sesi}}</option>  
-                          @endforeach
-                        </select>
-                      </div>
-                    </div> --}}
                     <div class="col-2">
                       <div class="form-group">
                         <button type="submit" class="btn btn-primary">
@@ -111,41 +86,20 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Sobat ID</th>
-                      <th>Nama</th>
-                      <th>Posisi</th>
-                      <th>Nomor HP</th>
-                      <th>Foto</th>
-                      <th>Kegiatan</th>
-                      <th>Sesi</th>
-                      <th>Catatan</th>
+                      <th>ID Kegiatan</th>
+                      <th>Nama Kegiatan</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($mitra as $d)
-                    @php
-                      $path = Storage::url('uploads/mitra/'.$d->foto);
-                    @endphp
+                    @foreach ($kegiatan as $d)
                         <tr>
-                          <td>{{ $loop->iteration + $mitra->firstItem()-1 }}</td>
-                          <td>{{ $d->sobat_id }}</td>
-                          <td>{{ $d->nama }}</td>
-                          <td>{{ $d->posisi }}</td>
-                          <td>{{ $d->no_hp }}</td>
-                          <td>
-                            @if (empty($d->foto))
-                              <img src="{{ asset('assets/img/nophoto.png') }}" class="avatar me-2" alt="">
-                            @else
-                              <span class="avatar me-2" style="background-image: url({{ url($path) }})"></span>
-                            @endif
-                          </td>
+                          <td>{{ $loop->iteration }}</td>
+                          <td>{{ $d->id_kegiatan }}</td>
                           <td>{{ $d->nama_kegiatan }}</td>
-                          <td>{{ $d->sesi }}</td>
-                          <td>{{ $d->catatan }}</td>
                           <td>
                             <div class="btn-group">
-                              <a href="#" class="edit btn btn-info btn-sm" sobat_id="{{ $d->sobat_id }}">
+                              <a href="#" class="edit btn btn-info btn-sm" id_kegiatan="{{ $d->id_kegiatan }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                   <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
@@ -153,7 +107,7 @@
                                   <path d="M16 5l3 3"></path>
                                </svg>
                               </a>
-                              <form action="/mitra/{{ $d->sobat_id }}/delete" method="POST" style="margin-left: 5px">
+                              <form action="/kegiatan/{{ $d->id_kegiatan }}/delete" method="POST" style="margin-left: 5px">
                                 @csrf
                                 <a class="btn btn-danger btn-sm delete-confirm">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -172,7 +126,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                {{ $mitra->links('vendor.pagination.bootstrap-5') }}
+    
               </div>
             </div>
           </div>
@@ -182,15 +136,15 @@
   </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal-inputmitra" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-blur fade" id="modal-inputkegiatan" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Tambah Data Mitra</h5>
+        <h5 class="modal-title">Tambah Data Kegiatan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/mitra/store" method="POST" id="frmmitra" enctype="multipart/form-data">
+        <form action="/kegiatan/store" method="POST" id="frmkegiatan">
           @csrf
           <div class="row">
             <div class="col-12">
@@ -205,7 +159,7 @@
                     <path d="M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95"></path>
                  </svg>
                 </span>
-                <input type="text" value="" class="form-control" name="sobat_id" id="sobat_id" placeholder="Sobat ID">
+                <input type="text" value="" class="form-control" name="id_kegiatan" id="id_kegiatan" placeholder="ID Kegiatan">
               </div>
             </div>
           </div>
@@ -219,88 +173,7 @@
                     <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
                  </svg>
                 </span>
-                <input type="text" value="" class="form-control" name="nama" id="nama" placeholder="Nama">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="input-icon mb-3">
-                <span class="input-icon-addon">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                 </svg>
-                </span>
-                <input type="text" value="" class="form-control" name="password" id="password" placeholder="Password">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="input-icon mb-3">
-                <span class="input-icon-addon">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-call" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-                    <path d="M15 7a2 2 0 0 1 2 2"></path>
-                    <path d="M15 3a6 6 0 0 1 6 6"></path>
-                 </svg>
-                </span>
-                <input type="text" value="" class="form-control" name="no_hp" id="no_hp" placeholder="Nomor HP">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="mb-3">
-                <select type="text" class="form-select" id="select-users" name="posisi" id="posisi" value="">
-                  <option value="">Posisi</option>
-                  <option value="rb">Receiving Batching</option>
-                  <option value="edcod">Editing Coding</option>
-                  <option value="entri">Entry</option>
-                  <option value="peta">Olah Peta</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="input-icon mb-3">
-                <select name="id_kegiatan" class="form-select" id="id_kegiatan">
-                  <option value="">Kegiatan</option>
-                  @foreach ($kegiatan as $d)
-                    <option {{ Request('id_kegiatan')==$d->id_kegiatan ? 'selected' : '' }} value="{{ $d->id_kegiatan }}">{{ $d->nama_kegiatan}}</option>  
-                  @endforeach
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="input-icon mb-3">
-                <select type="text" class="form-select" id="sesi" name="sesi" value="">
-                  <option value="">Sesi</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="mb-3">
-                <div class="form-label">Foto</div>
-                  <input type="file" class="form-control" name="foto" id="foto" placeholder="Foto"/>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="mb-3">
-                <textarea class="form-control" name="catatan" id="catatan" rows="6" placeholder="Catatan"></textarea>
+                <input type="text" value="" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Nama Kegiatan">
               </div>
             </div>
           </div>
@@ -324,11 +197,11 @@
   </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal-editmitra" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-blur fade" id="modal-editkegiatan" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Data Mitra</h5>
+        <h5 class="modal-title">Edit Data Kegiatan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="loadeditform">
@@ -343,25 +216,25 @@
 @push('myscript')
 <script>
   $(function(){
-    $("#btnTambahMitra").click(function(){
-      $("#modal-inputmitra").modal("show");
+    $("#btnTambahKegiatan").click(function(){
+      $("#modal-inputkegiatan").modal("show");
     });
 
     $(".edit").click(function(){
-      var sobat_id = $(this).attr('sobat_id');
+      var id_kegiatan = $(this).attr('id_kegiatan');
       $.ajax({
         type: 'POST',
-        url: '/mitra/edit',
+        url: '/kegiatan/edit',
         cache: false,
         data: {
           _token: "{{ csrf_token(); }}",
-          sobat_id: sobat_id
+          id_kegiatan: id_kegiatan
         },
         success:function(respond){
           $("#loadeditform").html(respond);
         }
       });
-      $("#modal-editmitra").modal("show");
+      $("#modal-editkegiatan").modal("show");
     });
 
     $(".delete-confirm").click(function(e){
@@ -387,56 +260,30 @@
       })
     })
 
-    $("#frmmitra").submit(function(){
-      var sobat_id = $("#sobat_id").val();
-      var nama = $("#nama").val();
-      var password = $("#password").val();
-      var no_hp = $("#no_hp").val();
-      var posisi = $("frmMitra").find("#posisi").val();
-      var id_kegiatan = $("frmMitra").find("#id_kegiatan").val();
-      var sesi = $("frmMitra").find("#sesi").val();
-      if(sobat_id==""){
+    $("#frmkegiatan").submit(function(){
+      var id_kegiatan= $("#id_kegiatan").val();
+      var nama_kegiatan = $("#nama_kegiatan").val();
+      if(id_kegiatan==""){
         Swal.fire({
           title: 'Warning!',
-          text: 'Sobat Id harus terisi',
+          text: 'Id kegiatan harus terisi',
           icon: 'warning',
           confirmButtonText: 'Ok'
         }).then((result) => {
-          $("#sobat_id").focus();
+          $("#id_kegiatan").focus();
+        });
+        return false;
+      } else if (nama_kegiatan=="") {
+        Swal.fire({
+          title: 'Warning!',
+          text: 'Nama Kegiatan harus terisi',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        }).then((result) => {
+          $("#nama").focus();
         });
         return false;
       }
-      // else if (nama=="") {
-      //   Swal.fire({
-      //     title: 'Warning!',
-      //     text: 'Nama harus terisi',
-      //     icon: 'warning',
-      //     confirmButtonText: 'Ok'
-      //   }).then((result) => {
-      //     $("#nama").focus();
-      //   });
-      //   return false;
-      // } else if (posisi=="") {
-      //   Swal.fire({
-      //     title: 'Warning!',
-      //     text: 'Posisi harus terisi',
-      //     icon: 'warning',
-      //     confirmButtonText: 'Ok'
-      //   }).then((result) => {
-      //     $("#posisi").focus();
-      //   });
-      //   return false;
-      // } else if (id_kegiatan=="") {
-      //   Swal.fire({
-      //     title: 'Warning!',
-      //     text: 'Kegiatan harus terisi',
-      //     icon: 'warning',
-      //     confirmButtonText: 'Ok'
-      //   }).then((result) => {
-      //     $("#id_kegiatan").focus();
-      //   });
-      //   return false;
-      // }
     });
   });
 </script>
