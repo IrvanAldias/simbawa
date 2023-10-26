@@ -52,3 +52,32 @@
         </div>
 </div>
 @endsection
+@push('myscript')
+    <script>
+        $(document).ready(function(){
+            $("#tgl_izin").change(function(e){
+                var tgl_izin = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url:'/presensi/cekpengajuanizin',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        tgl_izin: tgl_izin
+                    },
+                    catch: false,
+                    success: function(respond) {
+                        if(respond>0) {
+                            Swal.fire({
+                            icon: 'warning',
+                            title: 'Waduh...',
+                            text: 'Anda sudah mengjukan izin pada tanggal tersebut!',
+                            }).then((result) => {
+                                $("#tgl_izin").val("");                  
+                        })
+                    }
+                }
+                });
+            });
+        });
+    </script>
+@endpush

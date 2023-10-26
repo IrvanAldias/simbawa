@@ -43,7 +43,7 @@
                 @endphp
                 @if (Session::get('warning'))
                     <div class="alert alert-danger">
-                        {{ $messagewarning }}
+                        {{ $messagewarning }}   
                     </div>
                 @endif
                 <form action="/proseslogin" method="POST">

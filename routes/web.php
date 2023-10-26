@@ -54,6 +54,7 @@ Route::middleware(['auth:mitra'])->group(function () {
     Route::get('/presensi/izin', [PresensiController::class, 'izin']);
     Route::get('/presensi/buatizin', [PresensiController::class, 'buatizin']);
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
+    Route::post('/presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
 });
 
 Route::middleware(['auth:user'])->group(function () {
@@ -82,7 +83,10 @@ Route::middleware(['auth:user'])->group(function () {
     Route::post('/presensi/cetaklaporan', [PresensiController::class, 'cetaklaporan']);
     Route::get('/presensi/rekap', [PresensiController::class, 'rekap']);
     Route::post('/presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
-    
+    Route::get('/presensi/izinsakit', [PresensiController::class, 'izinsakit']);
+    Route::post('/presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
+    Route::get('/presensi/{id}/batalizinsakit', [PresensiController::class, 'batalizinsakit']);
+        
     //Konfigurasi
     Route::get('/konfigurasi/lokasikantor', [KonfigurasiController::class, 'lokasikantor']);
     Route::post('/konfigurasi/updatelokasikantor', [KonfigurasiController::class, 'updatelokasikantor']);
