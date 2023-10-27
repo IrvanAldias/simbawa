@@ -31,4 +31,35 @@ class KonfigurasiController extends Controller
             return Redirect::back()->with(['warning' => 'Data gagal diperbarui']);
         }
     }
+
+    public function jamkerja()
+    {
+        $jam_kerja = DB::table('konfigurasi_jam')->orderBy('kode_jam_kerja')->get();
+        return view('konfigurasi.jamkerja', compact('jam_kerja'));
+    }
+
+    public function storejamkerja(Request $request)
+    {
+        $kode_jam_kerja = $request->kode_jam_kerja;
+        $nama_jam_kerja = $request->nama_jam_kerja;
+        $awal_jam_masuk = $request->awal_jam_masuk;
+        $jam_masuk = $request->jam_masuk;
+        $akhir_jam_masuk = $request->akhir_jam_masuk;
+        $jam_pulang = $request->jam_pulang;
+        $data = [
+            'kode_jam_kerja' => $kode_jam_kerja,
+            'nama_jam_kerja' => $nama_jam_kerja,
+            'awal_jam_masuk' => $awal_jam_masuk,
+            'jam_masuk' => $jam_masuk,
+            'akhir_jam_masuk' => $akhir_jam_masuk,
+            'jam_pulang' => $jam_pulang,
+        ];
+        try {
+            DB::table('konfigurasi_jam')->insert($data);
+            return Redirect::back()->with(['success'=>'Data berhasil disimpan']);
+        } catch (\Exception $e) {
+            dd($e);
+            return Redirect::back()->with(['error'=>'Data gagal disimpan']);
+        }
+    }
 }
