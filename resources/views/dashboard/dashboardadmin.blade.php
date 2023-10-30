@@ -7,10 +7,10 @@
             <div class="col">
                 <!-- Page pre-title -->
                 <div class="page-pretitle">
-                Overview
+                Panel
                 </div>
                 <h2 class="page-title">
-                Horizontal layout
+                Dashboard
                 </h2>
             </div>
         </div>
@@ -19,7 +19,7 @@
 <div class="page-body">
 <div class="container-xl">
     <div class="row">
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-3 mt-2">
                 <div class="card card-sm">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -44,7 +44,7 @@
                   </div>
                 </div>
               </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-3 mt-2">
                 <div class="card card-sm">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -71,7 +71,7 @@
                   </div>
                 </div>
               </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-3 mt-2">
                 <div class="card card-sm">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -98,7 +98,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-xl-3">
+              <div class="col-md-6 col-xl-3 mt-2">
                 <div class="card card-sm">
                   <div class="card-body">
                     <div class="row align-items-center">

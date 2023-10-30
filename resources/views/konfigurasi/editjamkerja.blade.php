@@ -1,4 +1,4 @@
-<form action="/mitra/{{ $mitra->sobat_id }}/update" method="POST" id="frmmitra" enctype="multipart/form-data">
+<form action="/konfigurasi/updatejamkerja" method="POST" id="frmjk">
     @csrf
     <div class="row">
       <div class="col-12">
@@ -13,7 +13,7 @@
               <path d="M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95"></path>
            </svg>
           </span>
-          <input type="text" value="{{ $mitra->sobat_id }}" class="form-control" name="sobat_id" id="sobat_id" placeholder="Sobat ID" disabled>
+          <input type="text" value="{{ $jam_kerja->kode_jam_kerja }}" class="form-control" name="kode_jam_kerja" id="kode_jam_kerja" placeholder="Kode Jam Kerja">
         </div>
       </div>
     </div>
@@ -27,74 +27,7 @@
               <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
            </svg>
           </span>
-          <input type="text" value="{{ $mitra->nama }}" class="form-control" name="nama" id="nama" placeholder="Nama">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="input-icon mb-3">
-          <span class="input-icon-addon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-call" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-              <path d="M15 7a2 2 0 0 1 2 2"></path>
-              <path d="M15 3a6 6 0 0 1 6 6"></path>
-           </svg>
-          </span>
-          <input type="text" value="{{ $mitra->no_hp }}" class="form-control" name="no_hp" id="no_hp" placeholder="Nomor HP">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="mb-3">
-          <select type="text" class="form-select" id="select-users" name="posisi" id="posisi">
-            <option {{ $mitra->posisi ? 'selected' : '' }} value="{{ $mitra->posisi }}">Posisi</option>
-            <option value="Receiving-Batching">Receiving Batching</option>
-            <option value="Editing-Coding">Editing Coding</option>
-            <option value="Entri">Entry</option>
-            <option value="Peta">Olah Peta</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="input-icon mb-3">
-          <select name="id_kegiatan" class="form-select" id="id_kegiatan">
-            <option value="">Kegiatan</option>
-            @foreach ($kegiatan as $d)
-              <option {{ $mitra->id_kegiatan==$d->id_kegiatan ? 'selected' : '' }} value="{{ $d->id_kegiatan }}">{{ $d->nama_kegiatan}}</option>  
-            @endforeach
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="input-icon mb-3">
-          <select type="text" class="form-select" id="sesi" name="sesi" value="">
-            @foreach ($konfigurasi_jam as $d)
-            <option {{ $mitra->sesi==$d->kode_jam_kerja ? 'selected' : '' }} value="{{ $d->kode_jam_kerja }}">{{ $d->nama_jam_kerja}}</option>  
-            @endforeach
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="mb-3">
-          <div class="form-label">Foto</div>
-            <input type="file" class="form-control" name="foto" id="foto" placeholder="Foto"/>
-            <input type="hidden" name="old_foto" value="{{ $mitra->foto }}" id="">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="mb-3">
-          <textarea class="form-control" name="catatan" id="catatan" rows="6" placeholder="Catatan">{{ $mitra->catatan }}</textarea>
+          <input type="text" value="{{ $jam_kerja->nama_jam_kerja }}" class="form-control" name="nama_jam_kerja" id="nama_jam_kerja" placeholder="Nama Jam Kerja">
         </div>
       </div>
     </div>
@@ -108,7 +41,49 @@
               <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
            </svg>
           </span>
-          <input type="text" class="form-control" name="password" id="password" placeholder="Password, Hanya diisi jika ingin direset">
+          <input type="text" value="{{ $jam_kerja->awal_jam_masuk }}" class="form-control" name="awal_jam_masuk" id="awal_jam_masuk" placeholder="Nama Jam Masuk">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-icon mb-3">
+          <span class="input-icon-addon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+           </svg>
+          </span>
+          <input type="text" value="{{ $jam_kerja->jam_masuk }}" class="form-control" name="jam_masuk" id="jam_masuk" placeholder="Jam Masuk">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-icon mb-3">
+          <span class="input-icon-addon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+           </svg>
+          </span>
+          <input type="text" value="{{ $jam_kerja->akhir_jam_masuk }}" class="form-control" name="akhir_jam_masuk" id="akhir_jam_masuk" placeholder="Akhir Jam Masuk">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-icon mb-3">
+          <span class="input-icon-addon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+           </svg>
+          </span>
+          <input type="text" value="{{ $jam_kerja->jam_pulang }}" class="form-control" name="jam_pulang" id="jam_pulang" placeholder="Jam Pulang">
         </div>
       </div>
     </div>

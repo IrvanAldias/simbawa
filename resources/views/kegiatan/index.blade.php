@@ -54,17 +54,17 @@
               <div class="col-12">
                 <form action="/kegiatan" method="GET">
                   <div class="row">
-                    <div class="col-5">
+                    <div class="col-4">
                       <div class="form-group">
                         <input type="text" class="form-control" name="id_kegiatan" id="id_kegiatan" placeholder="ID Kegiatan" value="{{ Request('id_kegiatan') }}">
                       </div>
                     </div>
-                    <div class="col-5">
+                    <div class="col-4">
                       <div class="form-group">
                         <input type="text" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Nama Kegiatan" value="{{ Request('nama_kegiatan') }}">
                       </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4">
                       <div class="form-group">
                         <button type="submit" class="btn btn-primary">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +81,7 @@
               </div>
             </div>
             <div class="row mt-2">
-              <div class="col-12">
+              <div class="col-12" style="overflow-x:auto;">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -159,7 +159,7 @@
                     <path d="M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95"></path>
                  </svg>
                 </span>
-                <input type="text" value="" class="form-control" name="id_kegiatan" id="id_kegiatan" placeholder="ID Kegiatan">
+                <input type="text" value="" class="form-control" name="id_kegiatan" id="id_kegiatan" placeholder="ID Kegiatan" required>
               </div>
             </div>
           </div>
@@ -173,7 +173,7 @@
                     <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
                  </svg>
                 </span>
-                <input type="text" value="" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Nama Kegiatan">
+                <input type="text" value="" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Nama Kegiatan" required>
               </div>
             </div>
           </div>
@@ -259,32 +259,6 @@
         }
       })
     })
-
-    $("#frmkegiatan").submit(function(){
-      var id_kegiatan= $("#id_kegiatan").val();
-      var nama_kegiatan = $("#nama_kegiatan").val();
-      if(id_kegiatan==""){
-        Swal.fire({
-          title: 'Warning!',
-          text: 'Id kegiatan harus terisi',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          $("#id_kegiatan").focus();
-        });
-        return false;
-      } else if (nama_kegiatan=="") {
-        Swal.fire({
-          title: 'Warning!',
-          text: 'Nama Kegiatan harus terisi',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          $("#nama").focus();
-        });
-        return false;
-      }
-    });
   });
 </script>
 @endpush

@@ -118,21 +118,6 @@
                         </div>
                     </a>
                 </div>
-                {{-- <div class="col">
-                    <div class="card gradasired">
-                        <div class="card-body">
-                            <div class="presencecontent">
-                                <div class="iconpresence">
-                                    <ion-icon name="camera"></ion-icon>
-                                </div>
-                                <div class="presencedetail">
-                                    <h4 class="presencetitle">Pulang</h4>
-                                    <span>12:00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
 
@@ -203,6 +188,22 @@
                 </div>
             </div> -->
         </div> --}}
+
+        {{-- <h3>Progres Pengerjaan</h3>
+        <div class="section full mt-2 mb-2">
+            <div class="wide-block pt-2 pb-2">
+
+                <p>Produktivitas: 35 aksi/hari<br>Pengerjaan: 15/30</p>
+
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 50%">15 MB</div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%">30 MB</div>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 5%">20 MB</div>
+                </div>
+
+            </div>
+        </div> --}}
+
         <h3>Presensi Bulan Ini</h3>
         <div class="presencetab mt-2">
             <div class="tab-pane fade show active" id="pilled" role="tabpanel">
@@ -309,63 +310,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="item-menu text-center">
-                                            <div class="menu-icon">
-                                                <ion-icon name="accessibility"></ion-icon>
-                                            </div>
-                                            <div class="menu-name">
-                                                <span class="text-center">Hadir</span>
-                                            </div>
-                                            <span class="badge bg-danger">10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="item-menu text-center">
-                                            <div class="menu-icon">
-                                                <ion-icon name="mail"></ion-icon>
-                                            </div>
-                                            <div class="menu-name">
-                                                <span class="text-center">Izin</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="item-menu text-center">
-                                            <div class="menu-icon">
-                                                <ion-icon name="medkit"></ion-icon>
-                                            </div>
-                                            <div class="menu-name">
-                                                <span class="text-center">Sakit</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="item-menu text-center">
-                                            <div class="menu-icon">
-                                                <ion-icon name="timer"></ion-icon>
-                                            </div>
-                                            <div class="menu-name">
-                                                <span class="text-center">Telat</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

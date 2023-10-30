@@ -62,4 +62,44 @@ class KonfigurasiController extends Controller
             return Redirect::back()->with(['error'=>'Data gagal disimpan']);
         }
     }
+
+    public function editjamkerja(Request $request)
+    {
+        $kode_jam_kerja = $request->kode_jam_kerja;
+        $jam_kerja = DB::table('konfigurasi_jam')->where('kode_jam_kerja',$kode_jam_kerja)->first();
+        return view('konfigurasi.editjamkerja', compact('jam_kerja'));
+    }
+
+    public function updatejamkerja(Request $request)
+    {
+        $kode_jam_kerja = $request->kode_jam_kerja;
+        $nama_jam_kerja = $request->nama_jam_kerja;
+        $awal_jam_masuk = $request->awal_jam_masuk;
+        $jam_masuk = $request->jam_masuk;
+        $akhir_jam_masuk = $request->akhir_jam_masuk;
+        $jam_pulang = $request->jam_pulang;
+        $data = [
+            'nama_jam_kerja' => $nama_jam_kerja,
+            'awal_jam_masuk' => $awal_jam_masuk,
+            'jam_masuk' => $jam_masuk,
+            'akhir_jam_masuk' => $akhir_jam_masuk,
+            'jam_pulang' => $jam_pulang,
+        ];
+        try {
+            DB::table('konfigurasi_jam')->where('kode_jam_kerja',$kode_jam_kerja)->update($data);
+            return Redirect::back()->with(['success'=>'Data berhasil diubah']);
+        } catch (\Exception $e) {
+            return Redirect::back()->with(['error'=>'Data gagal diubah']);
+        }
+    }
+
+    public function deletejamkerja($kode_jam_kerja)
+    {
+        $hapus = DB::table('konfigurasi_jam')->where('kode_jam_kerja',$kode_jam_kerja)->delete();
+        if($hapus){
+            return Redirect::back()->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data gagal dihapus']);
+        }
+    }
 }

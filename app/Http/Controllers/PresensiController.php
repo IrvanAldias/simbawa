@@ -18,16 +18,20 @@ class PresensiController extends Controller
     {
         $hariini = date("Y-m-d");
         $sobat_id = Auth::guard('mitra')->user()->sobat_id;
+        $sesi = Auth::guard('mitra')->user()->sesi;
         $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('sobat_id', $sobat_id)->count();
         $lok_kantor = DB::table('konfigurasi_lokasi')->where('id',1)->first();
-        return view('presensi.create', compact('cek', 'lok_kantor'));
+        $jam_kerja = DB::table('konfigurasi_jam')->where('kode_jam_kerja', $sesi)->first();
+        return view('presensi.create', compact('cek', 'lok_kantor', 'jam_kerja'));
     }
 
     public function store(Request $request)
     {
         $sobat_id = Auth::guard('mitra')->user()->sobat_id;
+        $sesi = Auth::guard('mitra')->user()->sesi;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
+        $jam_kerja = DB::table('konfigurasi_jam')->where('kode_jam_kerja', $sesi)->first();
 
 
         $lok_kantor = DB::table('konfigurasi_lokasi')->where('id',1)->first();
@@ -50,44 +54,45 @@ class PresensiController extends Controller
         } else {
             $ket = "in";
         }
-        // $image = $request->image;
-        // $folderPath = "public/uploads/presensi/";
-        // $formatName = $sobat_id . "-" . $tgl_presensi . "-" . $ket;
-        // $image_parts = explode(";base64", $image);
-        // $image_base64 = base64_decode($image_parts[1]);
-        // $fileName = $formatName . ".png";
-        // $file = $folderPath . $fileName;
 
         if ($radius > $lok_kantor->radius) {
             echo "error|Hayo.. Anda berada di luar radius kantor! " . $radius . " meter dari kantor|radius";
         } else {
             if ($cek > 0) {
-                $data_2 = [
-                    'jam_out' => $jam,
-                    // 'foto_out' => $fileName,
-                    'lokasi_out' => $lokasi
-                ];
-                $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('sobat_id', $sobat_id)->update($data_2);
-                if ($update) {
-                    echo "success|Terimakasih, hati-hati di jalan dan selamat beristirahat.|out";
-                    // Storage::put($file, $image_base64);
+                if ($jam < $jam_kerja->jam_pulang) {
+                    echo "error|Belum saatnya presensi pulang!|out"; 
                 } else {
-                    echo "error|Presensi gagal dicatat!|out";
+                    $data_2 = [
+                        'jam_out' => $jam,
+                        'lokasi_out' => $lokasi
+                    ];
+                    $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('sobat_id', $sobat_id)->update($data_2);
+                    if ($update) {
+                        echo "success|Terimakasih, hati-hati di jalan dan selamat beristirahat.|out";
+                    } else {
+                        echo "error|Presensi gagal dicatat!|out";
+                    }           
                 }
+                
             } else {
-                $data = [
-                    'sobat_id' => $sobat_id,
-                    'tgl_presensi' => $tgl_presensi,
-                    'jam_in' => $jam,
-                    // 'foto_in' => $fileName,
-                    'lokasi_in' => $lokasi
-                ];
-                $simpan = DB::table('presensi')->insert($data);
-                if ($simpan) {
-                    echo "success|Semangat dan selamat bekerja!|in";
-                    // Storage::put($file, $image_base64);
+                if ($jam < $jam_kerja->awal_jam_masuk) {
+                    echo "error|Presensi belum dibuka|in";
+                } else if ($jam > $jam_kerja->akhir_jam_masuk) {
+                    echo "error|Presensi masuk sudah ditutup|in";
                 } else {
-                    echo "error|Presensi gagal dicatat!|in";
+                    $data = [
+                        'sobat_id' => $sobat_id,
+                        'tgl_presensi' => $tgl_presensi,
+                        'jam_in' => $jam,
+                        'kode_jam_kerja' => $jam_kerja->kode_jam_kerja,
+                        'lokasi_in' => $lokasi
+                    ];
+                    $simpan = DB::table('presensi')->insert($data);
+                    if ($simpan) {
+                        echo "success|Semangat dan selamat bekerja!|in";
+                    } else {
+                        echo "error|Presensi gagal dicatat!|in";
+                    }
                 }
             }
         }
@@ -240,7 +245,8 @@ class PresensiController extends Controller
     {
         $tanggal = $request->tanggal;
         $presensi = DB::table('presensi')
-            ->select('presensi.*','nama', 'nama_kegiatan', 'posisi', 'sesi')
+            ->select('presensi.*','nama', 'nama_kegiatan', 'posisi', 'sesi', 'jam_masuk')
+            ->leftJoin('konfigurasi_jam','presensi.kode_jam_kerja','=','konfigurasi_jam.kode_jam_kerja')
             ->join('mitra','presensi.sobat_id','=','mitra.sobat_id')
             ->join('kegiatan','mitra.id_kegiatan','=','kegiatan.id_kegiatan')
             ->where('tgl_presensi', $tanggal)
@@ -275,6 +281,7 @@ class PresensiController extends Controller
             ->join('kegiatan', 'mitra.id_kegiatan','=','kegiatan.id_kegiatan')
             ->first();
         $presensi = DB::table('presensi')->where('sobat_id',$sobat_id)
+            ->leftJoin('konfigurasi_jam','presensi.kode_jam_kerja','=','konfigurasi_jam.kode_jam_kerja')
             ->whereRaw('MONTH(tgl_presensi)="'.$bulan.'"')
             ->whereRaw('YEAR(tgl_presensi)="'.$tahun.'"')
             ->orderBy('tgl_presensi')
@@ -301,7 +308,7 @@ class PresensiController extends Controller
         $tahun = $request->tahun;
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         $rekap = DB::table('presensi')
-        ->selectRaw('presensi.sobat_id, nama,
+        ->selectRaw('presensi.sobat_id, nama, jam_masuk, jam_pulang, posisi,
         MAX(IF(DAY(tgl_presensi) = 1,CONCAT(jam_in,"-",IFNULL(jam_out,"kosong")),"")) as tgl_1,
         MAX(IF(DAY(tgl_presensi) = 2,CONCAT(jam_in,"-",IFNULL(jam_out,"kosong")),"")) as tgl_2,
         MAX(IF(DAY(tgl_presensi) = 3,CONCAT(jam_in,"-",IFNULL(jam_out,"kosong")),"")) as tgl_3,
@@ -334,9 +341,10 @@ class PresensiController extends Controller
         MAX(IF(DAY(tgl_presensi) = 30,CONCAT(jam_in,"-",IFNULL(jam_out,"kosong")),"")) as tgl_30,
         MAX(IF(DAY(tgl_presensi) = 31,CONCAT(jam_in,"-",IFNULL(jam_out,"kosong")),"")) as tgl_31')
         ->join('mitra','presensi.sobat_id','=','mitra.sobat_id')
+        ->leftJoin('konfigurasi_jam','presensi.kode_jam_kerja','=','konfigurasi_jam.kode_jam_kerja')
         ->whereRaw('MONTH(tgl_presensi)="'.$bulan.'"')
         ->whereRaw('YEAR(tgl_presensi)="'.$tahun.'"')
-        ->groupByRaw('presensi.sobat_id, nama')
+        ->groupByRaw('presensi.sobat_id, nama, jam_masuk, jam_pulang, posisi')
         ->orderBy('mitra.posisi')
         ->get();
 

@@ -20,12 +20,16 @@ class Mitra extends Authenticatable
 
     protected $table = "mitra";
     protected $primaryKey = "sobat_id";
+    public $timestamps = false;
     protected $fillable = [
         'sobat_id',
         'nama',
         'posisi',
-        'no_ho',
+        'no_hp',
         'password',
+        'catatan',
+        'sesi',
+        'id_kegiatan',
     ];
 
     /**

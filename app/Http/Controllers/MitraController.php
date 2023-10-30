@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class MitraController extends Controller
 {
@@ -24,17 +25,13 @@ class MitraController extends Controller
         if (!empty($request->id_kegiatan)) {
             $query->where('mitra.id_kegiatan', $request->id_kegiatan);
         }
-        // if (!empty($request->posisi)) {
-        //     $query->where('posisi', $request->posisi);
-        // }
-        // if (!empty($request->sesi)) {
-        //     $query->where('sesi', $request->sesi);
-        // }
+
         $mitra = $query->paginate(10);
 
         $kegiatan = DB::table('kegiatan')->get();
+        $konfigurasi_jam = DB::table('konfigurasi_jam')->get();
 
-        return view('mitra.index', compact('mitra', 'kegiatan'));
+        return view('mitra.index', compact('mitra', 'kegiatan', 'konfigurasi_jam'));
     }
 
     public function store(Request $request)
@@ -73,8 +70,33 @@ class MitraController extends Controller
                 return Redirect::back()->with(['success' => 'Data mitra berhasil disimpan']);
             }
         } catch (\Exception $e) {
-            return Redirect::back()->with(['error' => 'Data mitra gagal disimpan']);
-            dd($e);
+            if ($e->getCode()===23000) {
+                $message = "Data dengan Sobat ID " . $sobat_id . "sudah ada!";
+            } else {
+                $message = "Hubungi IT.";
+            }
+            return Redirect::back()->with(['error' => 'Data mitra gagal disimpan. ' . $message]);
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $mitra = (new FastExcel)->import($request->file('data'), function ($line) {
+            return Mitra::updateOrCreate(
+                ['sobat_id' => $line['sobat_id']],
+                ['nama' => $line['nama'],
+                'password' => $line['password'],
+                'posisi' => $line['posisi'],
+                'no_hp' => $line['no_hp'],
+                'catatan' => $line['catatan'],
+                'sesi' => $line['sesi'],
+                'id_kegiatan' => $line['id_kegiatan']]
+            );
+        });
+        if ($mitra) {
+            return Redirect::back()->with(['success' => 'Data mitra berhasil diimpor. ']);
+        } else {
+            return Redirect::back()->with(['error' => 'Data mitra gagal diimpor. ']);
         }
     }
 
@@ -82,9 +104,11 @@ class MitraController extends Controller
     {
         $sobat_id = $request->sobat_id;
         $kegiatan = DB::table('kegiatan')->get();
+        $konfigurasi_jam = DB::table('konfigurasi_jam')->get();
         $mitra = DB::table('mitra')->where('sobat_id',$sobat_id)->first();
-        return view('mitra.edit', compact('kegiatan', 'mitra'));
+        return view('mitra.edit', compact('kegiatan', 'mitra', 'konfigurasi_jam'));
     }
+    
 
     public function update($sobat_id, Request $request)
     {

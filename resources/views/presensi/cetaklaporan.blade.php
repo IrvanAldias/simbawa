@@ -135,7 +135,7 @@
         </tr>
         @foreach ($presensi as $d)
         @php
-            $jam_terlambat = selisih('08:00:00', $d->jam_in);
+            $jam_terlambat = selisih($d->jam_masuk, $d->jam_in);
         @endphp
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -144,7 +144,7 @@
                 <td>{{ $d->jam_out != null ? $d->jam_out : 'Belum presensi'}}</td>
                 <td>{{ $d->lokasi_in }}</td>
                 <td>
-                    @if ($d->jam_in > '08:00')
+                    @if ($d->jam_in > $d->jam_masuk)
                         Terlambat {{ $jam_terlambat }}
                     @else
                         Tepat Waktu

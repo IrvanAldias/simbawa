@@ -64,6 +64,7 @@ Route::middleware(['auth:user'])->group(function () {
     //Mitra
     Route::get('/mitra', [MitraController::class, 'index']);
     Route::post('/mitra/store', [MitraController::class, 'store']);
+    Route::post('/mitra/import', [MitraController::class, 'import']);
     Route::post('/mitra/edit', [MitraController::class, 'edit']);
     Route::post('/mitra/{sobat_id}/update', [MitraController::class, 'update']);
     Route::post('/mitra/{sobat_id}/delete', [MitraController::class, 'delete']);
@@ -86,10 +87,13 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/presensi/izinsakit', [PresensiController::class, 'izinsakit']);
     Route::post('/presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
     Route::get('/presensi/{id}/batalizinsakit', [PresensiController::class, 'batalizinsakit']);
-        
+    
     //Konfigurasi
     Route::get('/konfigurasi/lokasikantor', [KonfigurasiController::class, 'lokasikantor']);
     Route::post('/konfigurasi/updatelokasikantor', [KonfigurasiController::class, 'updatelokasikantor']);
     Route::get('/konfigurasi/jamkerja', [KonfigurasiController::class, 'jamkerja']);
     Route::post('/konfigurasi/storejamkerja', [KonfigurasiController::class, 'storejamkerja']);
+    Route::post('/konfigurasi/editjamkerja', [KonfigurasiController::class, 'editjamkerja']);
+    Route::post('/konfigurasi/updatejamkerja', [KonfigurasiController::class, 'updatejamkerja']);
+    Route::post('/konfigurasi/{kode_jam_kerja}/delete', [KonfigurasiController::class, 'deletejamkerja']);
 });

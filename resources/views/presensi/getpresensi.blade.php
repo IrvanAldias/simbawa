@@ -38,14 +38,9 @@
             </a>
         </td>
         <td>
-            @if ($d->jam_in >= '08:00' and $d->sesi == 1)
+            @if ($d->jam_in >= $d->jam_masuk)
                 @php
-                    $jam_terlambat = selisih('08:00:00', $d->jam_in);
-                @endphp
-                <span class="badge bg-danger">Terlambat {{ $jam_terlambat }}</span>
-            @elseif ($d->jam_in >= '15:00' and $d->sesi == 2)
-                @php
-                    $jam_terlambat = selisih('15:00:00', $d->jam_in);
+                    $jam_terlambat = selisih($d->jam_masuk, $d->jam_in);
                 @endphp
                 <span class="badge bg-danger">Terlambat {{ $jam_terlambat }}</span>
             @else

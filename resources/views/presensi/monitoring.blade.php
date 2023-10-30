@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12" style="overflow-x:auto;">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>

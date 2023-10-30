@@ -13,13 +13,14 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <title>Panel</title>
     <!-- CSS files -->
     <link href="{{ asset('tabler/dist/css/tabler.min.css?1684106062')}}" rel="stylesheet"/>
     <link href="{{ asset('tabler/dist/css/tabler-flags.min.css?1684106062')}}" rel="stylesheet"/>
     <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1684106062')}}" rel="stylesheet"/>
     <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1684106062')}}" rel="stylesheet"/>
     <link href="{{ asset('tabler/dist/css/demo.min.css?1684106062')}}" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" sizes="32x32">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
@@ -54,7 +55,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('tabler/dist/js/tabler.min.js?1684106062')}}" defer></script>
     <script src="{{ asset('tabler/dist/js/demo.min.js?1684106062')}}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/js/lib/sweetalert2@11.js')}}"></script>
+    <script src="{{ asset('assets/js/lib/jquery.mask.min.js')}}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

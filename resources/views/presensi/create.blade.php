@@ -175,7 +175,7 @@
                             title: 'Yey...',
                             text: status[1],
                             })
-                            setTimeout("location.href='/dashboard'",5000);
+                            setTimeout("location.href='/dashboard'",0);
                     } else {
                         // if (status[2] == 'radius') {
                         //     notif_radius.play();

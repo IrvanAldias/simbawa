@@ -52,23 +52,6 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 <body class="A4 landscape">
-{{-- @php
-         function selisih($jam_masuk, $jam_keluar)
-        {
-            list($h, $m, $s) = explode(":", $jam_masuk);
-            $dtAwal = mktime($h, $m, $s, "1", "1", "1");
-            list($h, $m, $s) = explode(":", $jam_keluar);
-            $dtAkhir = mktime($h, $m, $s, "1", "1", "1");
-            $dtSelisih = $dtAkhir - $dtAwal;
-            $totalmenit = $dtSelisih / 60;
-            $jam = explode(".", $totalmenit / 60);
-            $sisamenit = ($totalmenit / 60) - $jam[0];
-            $sisamenit2 = $sisamenit * 60;
-            $jml_jam = $jam[0];
-            return $jml_jam . " jam " . round($sisamenit2) . " menit ";
-        }
-@endphp --}}
-
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -93,9 +76,10 @@
         <tr>
             <th rowspan="2">No.</th>
             <th rowspan="2">Nama</th>
+            {{-- <th rowspan="2">Posisi</th> --}}
             <th colspan="31">Tanggal</th>
-            <th rowspan="2">TH</th>
-            <th rowspan="2">TT</th>
+            {{-- <th rowspan="2">TH</th>
+            <th rowspan="2">TT</th> --}}
         </tr>
         <tr>
             <?php
@@ -110,6 +94,7 @@
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $d->nama }}</td>
+            {{-- <td>{{ $d->posisi }}</td> --}}
             <?php
             $totalhadir = 0;
             $totalterlambat = 0;
@@ -121,20 +106,20 @@
                 } else {
                     $hadir = explode("-",$d->$tgl);
                     $totalhadir +=1;
-                    if($hadir[0]>"08:00:00"){
+                    if($hadir[0] > $d->jam_masuk){
                         $totalterlambat +=1;
                     }
                 }
             ?>
-            <td><span style="color: {{ $hadir[0]>"08:00:00" ? "red" : "" }}">{{ $hadir[0] }}</span>
+            <td><span style="color: {{ $hadir[0]>$d->jam_masuk ? "red" : "" }}">{{ substr($hadir[0], 0, 5) }}</span>
                 <br>
-                <span style="color: {{ $hadir[1]<"12:00:00" ? "red" : "" }}">{{ $hadir[1] }}</span>
+                <span style="color: {{ $hadir[1]<$d->jam_pulang ? "red" : "" }}">{{ substr($hadir[1], 0, 5) }}</span>
             </td>
             <?php
             }
             ?>
-            <td>{{ $totalhadir }}</td>
-            <td>{{ $totalterlambat }}</td>
+            {{-- <td>{{ $totalhadir }}</td>
+            <td>{{ $totalterlambat }}</td> --}}
         </tr>
         @endforeach
     </table>

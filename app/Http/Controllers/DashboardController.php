@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class DashboardController extends Controller
 {
@@ -26,7 +27,8 @@ class DashboardController extends Controller
             ->orderBy('tgl_presensi')
             ->get();
         $rekappresensi = DB::table('presensi')
-            ->selectRaw('COUNT(sobat_id) as jml_hadir, SUM(IF(jam_in > "07:00",1,0)) as jml_terlambat')
+            ->selectRaw('COUNT(sobat_id) as jml_hadir, SUM(IF(jam_in > jam_masuk,1,0)) as jml_terlambat')
+            ->leftJoin('konfigurasi_jam','presensi.kode_jam_kerja','=','konfigurasi_jam.kode_jam_kerja')
             ->where('sobat_id', $sobat_id)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
@@ -40,6 +42,27 @@ class DashboardController extends Controller
             ->first();
         return view('dashboard.dashboard', compact('presensihariini', 'historibulanini', 'rekappresensi', 'rekapizin'));
     }
+
+    // public function import(Request $request)
+    // {
+    //     $mitra = (new FastExcel)->import($request->file('data'), function ($line) {
+    //         return Mitra::updateOrCreate(
+    //             ['sobat_id' => $line['sobat_id']],
+    //             ['nama' => $line['nama'],
+    //             'password' => $line['password'],
+    //             'posisi' => $line['posisi'],
+    //             'no_hp' => $line['no_hp'],
+    //             'catatan' => $line['catatan'],
+    //             'sesi' => $line['sesi'],
+    //             'id_kegiatan' => $line['id_kegiatan']]
+    //         );
+    //     });
+    //     if ($mitra) {
+    //         return Redirect::back()->with(['success' => 'Data mitra berhasil diimpor. ']);
+    //     } else {
+    //         return Redirect::back()->with(['error' => 'Data mitra gagal diimpor. ']);
+    //     }
+    // }
 
     public function dashboardadmin()
     {

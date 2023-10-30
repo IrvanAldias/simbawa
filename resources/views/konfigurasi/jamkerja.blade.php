@@ -51,37 +51,7 @@
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-12">
-                  <form action="/kegiatan" method="GET">
-                    <div class="row">
-                      <div class="col-5">
-                        <div class="form-group">
-                          <input type="text" class="form-control" name="id_kegiatan" id="id_kegiatan" placeholder="ID Kegiatan" value="{{ Request('id_kegiatan') }}">
-                        </div>
-                      </div>
-                      <div class="col-5">
-                        <div class="form-group">
-                          <input type="text" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Nama Kegiatan" value="{{ Request('nama_kegiatan') }}">
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="form-group">
-                          <button type="submit" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                                <path d="M21 21l-6 -6"></path>
-                             </svg>
-                             Cari
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-12">
+                <div class="col-12" style="overflow-x:auto;">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -195,7 +165,7 @@
                       <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
                    </svg>
                   </span>
-                  <input type="text" value="" class="form-control" name="awal_jam_masuk" id="awal_jam_masuk" placeholder="Nama Jam Masuk">
+                  <input type="text" value="" class="form-control" name="awal_jam_masuk" id="awal_jam_masuk" placeholder="Awal Jam Masuk">
                 </div>
               </div>
             </div>
@@ -280,6 +250,8 @@
 @push('myscript')
 <script>
   $(function(){
+    $('#awal_jam_masuk, #jam_masuk, #akhir_jam_masuk, #jam_pulang').mask('00:00:00');
+
     $("#btnTambahjk").click(function(){
       $("#modal-inputjk").modal("show");
     });
@@ -288,7 +260,7 @@
       var kode_jam_kerja = $(this).attr('kode_jam_kerja');
       $.ajax({
         type: 'POST',
-        url: '/konfigurasi/edit',
+        url: '/konfigurasi/editjamkerja',
         cache: false,
         data: {
           _token: "{{ csrf_token(); }}",

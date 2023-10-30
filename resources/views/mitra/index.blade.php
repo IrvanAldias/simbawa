@@ -39,22 +39,35 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <a href="#" class="btn btn-primary" id="btnTambahMitra">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                    <path d="M16 19h6"></path>
-                    <path d="M19 16v6"></path>
-                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
-                 </svg>
-                  Tambah Data</a>
+                <div class="row ">
+                  <div class="col-12">
+                    <a href="#" class="btn btn-primary" id="btnTambahMitra">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                        <path d="M16 19h6"></path>
+                        <path d="M19 16v6"></path>
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                     </svg>
+                      Tambah Data</a>
+                      <a href="#" class="btn btn-success" id="btnImporMitra">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                          <path d="M16 19h6"></path>
+                          <path d="M19 16v6"></path>
+                          <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                       </svg>
+                        Impor Data</a>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row mt-2">
               <div class="col-12">
                 <form action="/mitra" method="GET">
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                       <div class="form-group">
                         <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mitra" value="{{ Request('nama') }}">
                       </div>
@@ -69,27 +82,7 @@
                         </select>
                       </div>
                     </div>
-                    {{-- <div class="col-2">
-                      <div class="form-group">
-                        <select name="posisi" class="form-select" id="posisi">
-                          <option value="">Posisi</option>
-                          @foreach ($mitra as $d)
-                          <option {{ Request('posisi')==$d->posisi ? 'selected' : '' }} value="{{ $d->posisi }}">{{ $d->posisi}}</option>  
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-1">
-                      <div class="form-group">
-                        <select name="sesi" class="form-select" id="sesi">
-                          <option value="">Sesi</option>
-                          @foreach ($mitra as $d)
-                          <option {{ Request('sesi')==$d->sesi ? 'selected' : '' }} value="{{ $d->sesi }}">{{ $d->sesi}}</option>  
-                          @endforeach
-                        </select>
-                      </div>
-                    </div> --}}
-                    <div class="col-2">
+                    <div class="col-4">
                       <div class="form-group">
                         <button type="submit" class="btn btn-primary">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -106,7 +99,7 @@
               </div>
             </div>
             <div class="row mt-2">
-              <div class="col-12">
+              <div class="col-12" style="overflow-x:auto;">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -257,10 +250,10 @@
               <div class="mb-3">
                 <select type="text" class="form-select" id="select-users" name="posisi" id="posisi" value="">
                   <option value="">Posisi</option>
-                  <option value="rb">Receiving Batching</option>
-                  <option value="edcod">Editing Coding</option>
-                  <option value="entri">Entry</option>
-                  <option value="peta">Olah Peta</option>
+                  <option value="Receiving-Batching">Receiving Batching</option>
+                  <option value="Editing-Coding">Editing Coding</option>
+                  <option value="Entri">Entry</option>
+                  <option value="Peta">Olah Peta</option>
                 </select>
               </div>
             </div>
@@ -281,10 +274,13 @@
             <div class="col-12">
               <div class="input-icon mb-3">
                 <select type="text" class="form-select" id="sesi" name="sesi" value="">
-                  <option value="">Sesi</option>
+                  {{-- <option value="">Sesi</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="3">3</option> --}}
+                  @foreach ($konfigurasi_jam as $d)
+                  <option {{ Request('sesi')==$d->kode_jam_kerja ? 'selected' : '' }} value="{{ $d->kode_jam_kerja }}">{{ $d->nama_jam_kerja}}</option>  
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -338,6 +334,44 @@
   </div>
 </div>
 
+<div class="modal modal-blur fade" id="modal-impormitra" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Impor Data Mitra</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/mitra/import" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="row">
+            <div class="col-12">
+              <div class="input-icon mb-3">
+                <div class="form-label">FIle</div>
+                  <input type="file" class="form-control" name="data" id="data" placeholder="File"/>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              <div class="form-group">
+                <button class="btn btn-primary w-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-floppy" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"></path>
+                    <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M14 4l0 4l-6 0l0 -4"></path>
+                 </svg>
+                 Kirim</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @push('myscript')
@@ -345,6 +379,10 @@
   $(function(){
     $("#btnTambahMitra").click(function(){
       $("#modal-inputmitra").modal("show");
+    });
+
+    $("#btnImporMitra").click(function(){
+      $("#modal-impormitra").modal("show");
     });
 
     $(".edit").click(function(){
