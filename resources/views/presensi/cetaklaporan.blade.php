@@ -20,11 +20,12 @@
     }
 
     .tabeldatamitra {
-        margin-top: 30px;
+        margin-top: 5px;
     }
 
     .tabeldatamitra td {
         padding: 5px;
+        font-size: 13px;
     }
 
     .tabelpresensi {
@@ -37,6 +38,7 @@
         border: 1px solid black;
         padding: 5px;
         background-color: beige;
+        font-size: 12px;
     }
 
     .tabelpresensi tr td {
